@@ -47,7 +47,6 @@ class TestDeck(unittest.TestCase):
             expected_result.append(deck_card.__str__())
 
         actual_result = self.test_deck.__str__()
-
         self.assertEqual(expected_result, actual_result)
 
     def test_when_shuffle_called_shuffle_the_deck_method2(self):
