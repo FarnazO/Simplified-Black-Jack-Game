@@ -29,7 +29,7 @@ class TestHand(unittest.TestCase):
         '''
         Test the __str__ method of the Hand class
         '''
-        expected_result = ([], "You have a total score of 0.")
+        expected_result = ([], "Total score: 0.")
         actual_result = self.test_hand.__str__()
 
         self.assertEqual(expected_result, actual_result)
@@ -82,7 +82,7 @@ class TestHand(unittest.TestCase):
         Test the adjust_for_ace method in the Hand class when a card other than an ace is used.
         '''
         with self.assertRaises(Exception) as context:
-            self.test_hand.adjust_for_ace(Card("Two", "Hearts"))
+            self.test_hand.adjust_for_ace(Card("2", "Hearts"))
             
         self.assertEqual("It is not an ace.", str(context.exception))
 
