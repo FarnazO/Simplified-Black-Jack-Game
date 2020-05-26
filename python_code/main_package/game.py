@@ -1,7 +1,7 @@
 '''
 This module contains the Game class
 '''
-from deck import Deck
+from main_package.deck import Deck
 
 class Game():
     '''
@@ -51,6 +51,7 @@ class Game():
             else:
                 # print(f"The bet you placed is {self.player_bet}!")
                 return self.player_bet
+
     def hit(self, deck, hand):
         '''
         This method takes in a deck object and hand object\
@@ -59,6 +60,7 @@ class Game():
         '''
         new_card = deck.get_next_card()
         hand.add_card(new_card)
+
     def hit_or_stand(self, deck, hand):
         '''
         This method asks the user if they want to hit and get another card or stand.
@@ -79,6 +81,7 @@ class Game():
             else:
                 print("Wrong choice!")
                 continue 
+    
     def show_hands(self, player_hand, dealer_hand, all_or_some = "some"):
         '''
         This method shows all the players cards plus all the dealer's hand\
@@ -96,7 +99,7 @@ class Game():
             print(f"Dealer's hand with total score: {dealer_hand.value}")
             deck_of_cards.print_all_cards(dealer_hand.cards)
         else:
-            print(f"Dealer's hand: ")
+            print("Dealer's hand: ")
             deck_of_cards.print_some_cards(dealer_hand.cards)
 
         print(f"\nPlayer's hand with total score: {player_hand.value}")

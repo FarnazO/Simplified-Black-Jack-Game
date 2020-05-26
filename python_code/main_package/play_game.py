@@ -2,21 +2,34 @@
 This module contains the PlayGame class which contains the steps of the game.
 And when the file is run on the command line, you can play the black jack game.
 '''
-from game import Game
-from chips import Chips
-from deck import Deck
-from hand import Hand
-import emoji
-from card import Card
+from main_package.game import Game
+from main_package.chips import Chips
+from main_package.deck import Deck
+from main_package.hand import Hand
+from main_package.card import Card
 
 class PlayGame():
     '''
-    This class contains the 
+    This class contains all the steps required for running the game as methods.
+    It contains the following properties:
+        - an game object
+        - player_chips which is a chips object
+        - dealer_chips which is a chips object
+    It contains the following methods:
+        - "start_the_game" which prints the word "START" and welcomes the user to the game
+        - 
     '''
     def __init__(self):
         self.game = Game()
         self.player_chips = Chips()
         self.dealer_chips = Chips()
+        self.player_hand = ""
+        self.dealer_hand = ""
+        self.deck = ""
+        self.game_status = "started"
+        self.game.h_or_s = "h"
+
+
     def start_the_game(self):
         print("Welcome to the simplified Black Jack game!")
         print("="*50)
@@ -31,25 +44,20 @@ class PlayGame():
         print("\U0001F497 is Hearts")
         print("\U0001F46F is Clubs")
         print("="*50)
+
     def start_a_new_round(self):
         self.player_hand = Hand()
         self.dealer_hand = Hand()
+        self.deck = Deck()
         self.game_status = "started"
         self.game.h_or_s = "h"
-    def shuffle_deck_and_deal_cards(self):
-        self.deck = Deck()
-        self.deck.shuffle()
-        player_cards, dealer_cards = self.deck.deal()
-        self.__place_cards_in_hand__(self.player_hand, player_cards)
-        self.__place_cards_in_hand__(self.dealer_hand, dealer_cards)
-    def __place_cards_in_hand__(self, hand, cards):
-        for card in cards:
-            hand.add_card(card)
-        return hand
+        self.__shuffle_deck_and_deal_cards__()
+
     def ask_player_for_bet(self):
-        bet_or_not = play.game.take_bet(self.player_chips)
+        bet_or_not = self.game.take_bet(self.player_chips)
         if bet_or_not == "ended":
             self.game_status = "ended"
+
     def show_all_player_cards_and_some_dealer_cards(self):
         self.game.show_hands(self.player_hand, self.dealer_hand, "some")
     def show_all_cards(self):
@@ -118,13 +126,23 @@ class PlayGame():
         print("||    *      * * *  *       *     *           *       *   * * * *   *       *  *  *      *  ||")
         print("="*95)
 
+    def __shuffle_deck_and_deal_cards__(self):
+        self.deck.shuffle()
+        dealth_cards = self.deck.deal()
+        self.__place_cards_in_hand__(self.player_hand, dealth_cards[0])
+        self.__place_cards_in_hand__(self.dealer_hand, dealth_cards[1])
+        
+    def __place_cards_in_hand__(self, hand, cards):
+        for card in cards:
+            hand.add_card(card)
+        return hand
+
 if __name__ == '__main__':
     play = PlayGame()
     play.start_the_game()
     playing = True
     while playing:
         play.start_a_new_round()
-        play.shuffle_deck_and_deal_cards()
         play.ask_player_for_bet()
         if play.game_status == "ended":
             break

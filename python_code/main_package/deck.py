@@ -2,7 +2,7 @@
 This is the deck module containing the Deck() class
 '''
 import random
-from card import Card
+from main_package.card import Card
 
 class Deck():
     '''
@@ -156,16 +156,6 @@ class Deck():
                                                                    card_ranks[4]))
             print("└───────┘  └───────┘  └───────┘  └───────┘  └───────┘")
 
-    # def print_back_of_card(self):
-    #     back_emoji = "\U0001F9A0" 
-    #     print("┌───────┐  ┌───────┐")
-    #     print("|{0}{1}{2} |  |{0}{1}{2} |".format(back_emoji,back_emoji,back_emoji))
-    #     print("|{0}{1}{2} |  |{0}{1}{2} |".format(back_emoji,back_emoji,back_emoji))
-    #     print("|{0}{1}{2} |  |{0}{1}{2} |".format(back_emoji,back_emoji,back_emoji))
-    #     print("|{0}{1}{2} |  |{0}{1}{2} |".format(back_emoji,back_emoji,back_emoji))
-    #     print("|{0}{1}{2} |  |{0}{1}{2} |".format(back_emoji,back_emoji,back_emoji))
-    #     print("└───────┘  └───────┘")
-
     def print_some_cards(self, cards):
         back_emoji = "\U0001F9A0"
         suit_choices = {
@@ -260,3 +250,4 @@ class Deck():
                                                                    card_ranks[3],
                                                                    card_ranks[4]))
             print("└───────┘  └───────┘  └───────┘  └───────┘  └───────┘")
+
