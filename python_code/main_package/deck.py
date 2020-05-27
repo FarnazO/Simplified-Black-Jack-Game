@@ -74,6 +74,9 @@ class Deck():
         return next_card
 
     def print_all_cards(self, cards):
+        '''
+        This method prints all the cards given.
+        '''
         suit_choices = {
             'Spades':   '\U000026CF ',
             'Diamonds': '\U0001F48E',
@@ -97,19 +100,20 @@ class Deck():
             print("┌───────┐  ┌───────┐")
             print("| {:<2}    |  | {:<2}    |".format(card_ranks[0], card_ranks[1]))
             print("|       |  |       |")
-            print("|   {}  |  |   {}  |".format(suit_choices[cards[0].suit], suit_choices[cards[1].suit]))
+            print("|   {}  |  |   {}  |".format(suit_choices[cards[0].suit],\
+                                                suit_choices[cards[1].suit]))
             print("|       |  |       |")
             print("|    {:>2} |  |    {:>2} |".format(card_ranks[0], card_ranks[1]))
             print("└───────┘  └───────┘")
         elif len(cards) == 3:
             print("┌───────┐  ┌───────┐  ┌───────┐")
-            print("| {:<2}    |  | {:<2}    |  | {:<2}    |".format(card_ranks[0],\
-                                                                    card_ranks[1],\
+            print("| {:<2}    |  | {:<2}    |  | {:<2}    |".format(card_ranks[0],
+                                                                    card_ranks[1],
                                                                     card_ranks[2]))
             print("|       |  |       |  |       |")
-            print("|   {}  |  |   {}  |  |   {}  |".format(suit_choices[cards[0].suit], \
-                                                            suit_choices[cards[1].suit],\
-                                                            suit_choices[cards[2].suit]))
+            print("|   {}  |  |   {}  |  |   {}  |".format(suit_choices[cards[0].suit],
+                                                           suit_choices[cards[1].suit],
+                                                           suit_choices[cards[2].suit]))
             print("|       |  |       |  |       |")
             print("|    {:>2} |  |    {:>2} |  |    {:>2} |".format(card_ranks[0],\
                                                                     card_ranks[1],
@@ -122,15 +126,15 @@ class Deck():
                                                                                   card_ranks[2],
                                                                                   card_ranks[3]))
             print("|       |  |       |  |       |  |       |")
-            print("|   {}  |  |   {}  |  |   {}  |  |   {}  |".format(suit_choices[cards[0].suit], 
-                                                            suit_choices[cards[1].suit],
-                                                            suit_choices[cards[2].suit],
-                                                            suit_choices[cards[3].suit]))
+            print("|   {}  |  |   {}  |  |   {}  |  |   {}  |".format(suit_choices[cards[0].suit],
+                                                                      suit_choices[cards[1].suit],
+                                                                      suit_choices[cards[2].suit],
+                                                                      suit_choices[cards[3].suit]))
             print("|       |  |       |  |       |  |       |")
             print("|    {:>2} |  |    {:>2} |  |    {:>2} |  |    {:>2} |".format(card_ranks[0],
-                                                                    card_ranks[1],
-                                                                    card_ranks[2],
-                                                                    card_ranks[3]))
+                                                                                  card_ranks[1],
+                                                                                  card_ranks[2],
+                                                                                  card_ranks[3]))
             print("└───────┘  └───────┘  └───────┘  └───────┘")
         elif len(cards) == 5:
             print("┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐")
@@ -142,7 +146,7 @@ class Deck():
                                                                                    card_ranks[4]))
             print("|       |  |       |  |       |  |       |  |       |")
             print("|   {}  |  |   {}  |  |   {}  |  |   {}  |  |   {}  |".\
-                                                    format(suit_choices[cards[0].suit], 
+                                                    format(suit_choices[cards[0].suit],
                                                            suit_choices[cards[1].suit],
                                                            suit_choices[cards[2].suit],
                                                            suit_choices[cards[3].suit],
@@ -157,6 +161,9 @@ class Deck():
             print("└───────┘  └───────┘  └───────┘  └───────┘  └───────┘")
 
     def print_some_cards(self, cards):
+        '''
+        This method hides the first card and prints all the other given cards
+        '''
         back_emoji = "\U0001F9A0"
         suit_choices = {
             'Spades':   '\U000026CF ',
@@ -172,82 +179,66 @@ class Deck():
 
         if len(cards) == 2:
             print("┌───────┐  ┌───────┐")
-            print("|{0}{1}{2} |  | {3}     |".format(back_emoji, back_emoji, back_emoji, card_ranks[1]))
-            print("|{0}{1}{2} |  |       |".format(back_emoji,back_emoji,back_emoji))
-            print("|{0}{1}{2} |  |   {3}  |".format(back_emoji, back_emoji, back_emoji, suit_choices[cards[1].suit]))
-            print("|{0}{1}{2} |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |    {3}  |".format(back_emoji, back_emoji, back_emoji, card_ranks[1]))
+            print("|{0}{0}{0} |  | {1}     |".format(back_emoji,
+                                                     card_ranks[1]))
+            print("|{0}{0}{0} |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |   {1}  |".format(back_emoji,
+                                                    suit_choices[cards[1].suit]))
+            print("|{0}{0}{0} |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |    {1}  |".format(back_emoji,
+                                                     card_ranks[1]))
             print("└───────┘  └───────┘")
         elif len(cards) == 3:
             print("┌───────┐  ┌───────┐  ┌───────┐")
-            print("|{0}{1}{2} |  | {3}    |  | {4}    |".format(back_emoji,
-                                                                back_emoji,
-                                                                back_emoji,
+            print("|{0}{0}{0} |  | {1}    |  | {2}    |".format(back_emoji,
                                                                 card_ranks[1],
                                                                 card_ranks[2]))
-            print("|{0}{1}{2} |  |       |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |   {3}  |  |   {4}  |".format(back_emoji,
-                                                                back_emoji,
-                                                                back_emoji,
-                                                            suit_choices[cards[1].suit],
-                                                            suit_choices[cards[2].suit]))
-            print("|{0}{1}{2} |  |       |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |    {3} |  |    {4} |".format(back_emoji,
-                                                                back_emoji,
-                                                                back_emoji,
+            print("|{0}{0}{0} |  |       |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |   {1}  |  |   {2}  |".format(back_emoji,
+                                                                suit_choices[cards[1].suit],
+                                                                suit_choices[cards[2].suit]))
+            print("|{0}{0}{0} |  |       |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |    {1} |  |    {2} |".format(back_emoji,
                                                                 card_ranks[1],
                                                                 card_ranks[2]))
             print("└───────┘  └───────┘  └───────┘")
         elif len(cards) == 4:
             print("┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐")
-            print("|{0}{1}{2} |  | {3}    |  | {4}    |  | {5}    |".format(back_emoji,
-                                                                            back_emoji,
-                                                                            back_emoji,
+            print("|{0}{0}{0} |  | {1}    |  | {2}    |  | {3}    |".format(back_emoji,
                                                                             card_ranks[1],
                                                                             card_ranks[2],
                                                                             card_ranks[3]))
-            print("|{0}{1}{2} |  |       |  |       |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |   {3}  |  |   {4}  |  |   {5}  |".format(back_emoji,
-                                                            back_emoji,
-                                                            back_emoji, 
-                                                            suit_choices[cards[1].suit],
-                                                            suit_choices[cards[2].suit],
-                                                            suit_choices[cards[3].suit]))
-            print("|{0}{1}{2} |  |       |  |       |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |    {3} |  |    {4} |  |    {5} |".format(back_emoji,
-                                                                    back_emoji,
-                                                                    back_emoji,
-                                                                    card_ranks[1],
-                                                                    card_ranks[2],
-                                                                    card_ranks[3]))
+            print("|{0}{0}{0} |  |       |  |       |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |   {1}  |  |   {2}  |  |   {3}  |".format(back_emoji,\
+                                                        suit_choices[cards[1].suit],\
+                                                        suit_choices[cards[2].suit],\
+                                                        suit_choices[cards[3].suit]))
+            print("|{0}{0}{0} |  |       |  |       |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |    {1} |  |    {2} |  |    {3} |".format(back_emoji,
+                                                                            card_ranks[1],
+                                                                            card_ranks[2],
+                                                                            card_ranks[3]))
             print("└───────┘  └───────┘  └───────┘  └───────┘")
         elif len(cards) == 5:
             print("┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐")
-            print("|{0}{1}{2} |  | {3}    |  | {4}    |  | {5}    |  | {6}    |".\
-                                                                            format(back_emoji,
-                                                                                   back_emoji,
-                                                                                   back_emoji,
-                                                                                   card_ranks[1],
-                                                                                   card_ranks[2],
-                                                                                   card_ranks[3],
-                                                                                   card_ranks[4]))
-            print("|{0}{1}{2} |  |       |  |       |  |       |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |   {3}  |  |   {4}  |  |   {5}  |  |   {6}  |".\
+            print("|{0}{0}{0} |  | {1}    |  | {2}    |  | {3}    |  | {4}    |".format(\
+                                                                            back_emoji,\
+                                                                            card_ranks[1],\
+                                                                            card_ranks[2],\
+                                                                            card_ranks[3],\
+                                                                            card_ranks[4]))
+            print("|{0}{0}{0} |  |       |  |       |  |       |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |   {1}  |  |   {2}  |  |   {3}  |  |   {4}  |".\
                                                     format(back_emoji,
-                                                           back_emoji,
-                                                           back_emoji, 
                                                            suit_choices[cards[1].suit],
                                                            suit_choices[cards[2].suit],
                                                            suit_choices[cards[3].suit],
                                                            suit_choices[cards[4].suit]))
-            print("|{0}{1}{2} |  |       |  |       |  |       |  |       |".format(back_emoji, back_emoji, back_emoji))
-            print("|{0}{1}{2} |  |    {3} |  |    {4} |  |    {5} |  |    {6} |".\
+            print("|{0}{0}{0} |  |       |  |       |  |       |  |       |".format(back_emoji))
+            print("|{0}{0}{0} |  |    {1} |  |    {2} |  |    {3} |  |    {4} |".\
                                                             format(back_emoji,
-                                                                   back_emoji,
-                                                                   back_emoji,
                                                                    card_ranks[1],
                                                                    card_ranks[2],
                                                                    card_ranks[3],
                                                                    card_ranks[4]))
             print("└───────┘  └───────┘  └───────┘  └───────┘  └───────┘")
-

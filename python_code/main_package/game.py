@@ -21,7 +21,7 @@ class Game():
         Output: the value of the bet taken by the player
         '''
         available_chips = chip.total
-        
+
         if available_chips == 0:
             print("You have no more chips left for playing! \U0001F62D \U0001F631")
             return "ended"
@@ -44,12 +44,12 @@ class Game():
                 input("Would you like to place another bet (type Y)? or end the game (type N)?")
                 if another_bet.upper() == "Y":
                     continue
-                elif another_bet.upper() == "N":
+
+                if another_bet.upper() == "N":
                     return "ended"
-                else:
-                    raise Exception("Wrong input!")
+
+                raise Exception("Wrong input!")
             else:
-                # print(f"The bet you placed is {self.player_bet}!")
                 return self.player_bet
 
     def hit(self, deck, hand):
@@ -60,6 +60,7 @@ class Game():
         '''
         new_card = deck.get_next_card()
         hand.add_card(new_card)
+        return hand.value
 
     def hit_or_stand(self, deck, hand):
         '''
@@ -73,16 +74,17 @@ class Game():
                 print("="*40)
                 self.h_or_s = "h"
                 break
-            elif result.lower() == "s" or result.lower() == "stand":
-                self.playing = False
+
+            if result.lower() == "s" or result.lower() == "stand":
                 print("="*40)
                 self.h_or_s = "s"
                 break
-            else:
-                print("Wrong choice!")
-                continue 
-    
-    def show_hands(self, player_hand, dealer_hand, all_or_some = "some"):
+
+            print("Wrong choice!")
+
+        return self.h_or_s
+
+    def show_hands(self, player_hand, dealer_hand, all_or_some="some"):
         '''
         This method shows all the players cards plus all the dealer's hand\
         apart from one of dealer's card.The all_or_some defines whether all the\
@@ -91,8 +93,6 @@ class Game():
                dealer's hand (hand object),\
                a string between "all" or "some"
         '''
-        player_cards, player_total_score = player_hand.__str__()
-        dealer_cards, dealer_total_score = dealer_hand.__str__()
         deck_of_cards = Deck()
 
         if all_or_some == "all":

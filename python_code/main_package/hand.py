@@ -65,7 +65,7 @@ class Hand():
         '''
         if card.rank != "Ace":
             raise Exception("It is not an ace.")
-            
+
         if self.value > 10:
             self.value += 1
         else:
