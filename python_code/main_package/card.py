@@ -1,7 +1,10 @@
+'''
+This module contains the Card class.
+'''
 class Card():
     '''
     This is the Card class which produces a card object for a given rank and suit
-    Inputs: 
+    Inputs:
     - rank:  a string representing the rank of a card. e.g. "Ace" or "Two"
     - suit:  a string representing the suit of a card. e.g. "Hearts" or "Spades"
     '''
