@@ -65,9 +65,7 @@ class TestDeck(unittest.TestCase):
 
         random_mock.assert_called_with(self.test_deck.cards)
 
-    '''
-    This way of testing seems to fail when working with relative imports
-    '''
+    ## This way of testing seems to fail when working with relative imports
     # @patch('deck.random')
     # def test_when_shuffle_called_shuffle_the_deck(self, mock_random):
     #     '''
@@ -103,8 +101,8 @@ class TestDeck(unittest.TestCase):
         '''
         This method tests the print_all_cards method when given two cards to print
         '''
-        player_cards, dealer_cards  = self.test_deck.deal()
-        expected_print_arg = "|{:>2}     |  |{:>2}     |".format(player_cards[0].rank,\
+        player_cards, dealer_cards = self.test_deck.deal()
+        expected_print_arg = "|{:>2}     |  |{:>2}     |".format(player_cards[0].rank,
                                                                  player_cards[1].rank)
         with patch.object(__builtins__, 'print') as mock_print:
             self.test_deck.print_all_cards(player_cards)
@@ -119,17 +117,16 @@ class TestDeck(unittest.TestCase):
         '''
         This method tests the print_some_cards method when given two cards to print
         '''
-        player_cards, dealer_cards  = self.test_deck.deal()
+        player_cards, dealer_cards = self.test_deck.deal()
         back_emoji = "\U0001F9A0"
-        expected_print_arg = "|{0}{1}{2} |  | {3}     |".format(\
-                                                        back_emoji,\
-                                                        back_emoji,\
-                                                        back_emoji,\
-                                                        dealer_cards[1].rank)
+        expected_print_arg = "|{0}{1}{2} |  | {3}     |".format(back_emoji,\
+                                                                back_emoji,\
+                                                                back_emoji,\
+                                                                dealer_cards[1].rank)
         with patch.object(__builtins__, 'print') as mock_print:
             self.test_deck.print_some_cards(dealer_cards)
             mock_print.assert_called_with("└───────┘  └───────┘")
-            
+
         actual_result = mock_print.call_args_list[1].args[0]
         self.assertEqual(expected_print_arg, actual_result)
         self.assertEqual(7, len(mock_print.call_args_list))

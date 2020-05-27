@@ -83,7 +83,7 @@ class TestHand(unittest.TestCase):
         '''
         with self.assertRaises(Exception) as context:
             self.test_hand.adjust_for_ace(Card("2", "Hearts"))
-            
+
         self.assertEqual("It is not an ace.", str(context.exception))
 
 if __name__ == '__main__':

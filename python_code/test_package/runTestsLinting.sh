@@ -9,7 +9,7 @@ files=($file_names)
 success=0
 for i in ${files[@]}
 do
-	echo "$i is running"
+	echo "Linting is running on $i"
 	pylint $i
 
 	echo "======================================="

@@ -99,8 +99,8 @@ class TestGame(unittest.TestCase):
         mock_print_cards.assert_called_with(self.dealer_hand.cards)
         self.assertEqual(expected_number_of_print_calls,\
                         len(mock_print.call_args_list))
-        self.assertEqual("Dealer's hand: ", 
-                        mock_print.call_args_list[0].args[0])
+        self.assertEqual("Dealer's hand: ",
+                         mock_print.call_args_list[0].args[0])
 
     def test_show_hands_method_when_all_cards_are_shown(self):
         '''
@@ -115,29 +115,8 @@ class TestGame(unittest.TestCase):
         self.assertEqual(expected_number_of_print_calls,\
                         len(mock_print.call_args_list))
 
-        self.assertEqual(f"Dealer's hand with total score: {self.dealer_hand.value}", 
-                        mock_print.call_args_list[0].args[0])
-
-    # def test_who_won_when_the_player_wins(self):
-    #     '''
-    #     Test the who_won method when the player wins the game
-    #     '''
-    #     player_hand = Hand()
-    #     player_hand.add_card(Card("Ace", "Hearts"))
-    #     player_hand.add_card(Card("Jack", "Diamonds"))
-    #     dealer_hand = Hand()
-    #     dealer_hand.add_card(Card("Seven", "Spades"))
-    #     dealer_hand.add_card(Card("Ten", "Clubs"))
-    #     self.game.player_bet = 10
-
-    #     expected_number_of_player_chips = 110
-    #     expected_number_of_dealer_chips = 90
-    #     winner = self.game.who_won(\
-    #         self.player_chips, self.dealer_chips, player_hand, dealer_hand\
-    #         )
-    #     self.assertEqual("Player", winner)
-    #     self.assertEqual(expected_number_of_player_chips, self.player_chips.total)
-    #     self.assertEqual(expected_number_of_dealer_chips, self.dealer_chips.total)
+        self.assertEqual(f"Dealer's hand with total score: {self.dealer_hand.value}",
+                         mock_print.call_args_list[0].args[0])
 
 if __name__ == '__main__':
     unittest.main()
