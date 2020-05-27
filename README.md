@@ -1,4 +1,4 @@
-# Simplified BlackJ ack Game
+# Simplified BlackJack Game
 Here a simplified version of black jack game is written in different languages:
   - python 
   - c++ <br>
