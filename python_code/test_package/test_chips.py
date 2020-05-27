@@ -25,16 +25,17 @@ class TestChips(unittest.TestCase):
         '''
         Test the correct number of chips is added when win_bet is called
         '''
-        self.chips.win_bet(10)
+        player_bet = 10
+        self.chips.win_bet(player_bet)
         self.assertEqual(110, self.chips.total)
 
     def test_correct_chips_is_removed_when_winning_the_bet(self):
         '''
         Test the correct number of chips is removed when lose_bet is called
         '''
-        self.chips.lose_bet(10)
+        player_bet = 10
+        self.chips.lose_bet(player_bet)
         self.assertEqual(90, self.chips.total)
 
 if __name__ == '__main__':
     unittest.main()
-    

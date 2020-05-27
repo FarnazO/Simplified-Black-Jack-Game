@@ -17,8 +17,7 @@ class TestDeck(unittest.TestCase):
         Sets up the common variables and objects used for all the unit tests
         '''
         self.suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
-        self.ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight',\
-            'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
+        self.ranks = ('2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace')
         self.test_deck = deck.Deck()
 
     def test_given_suits_and_ranks_build_the_card_deck(self):
@@ -47,8 +46,15 @@ class TestDeck(unittest.TestCase):
             expected_result.append(deck_card.__str__())
 
         actual_result = self.test_deck.__str__()
-
         self.assertEqual(expected_result, actual_result)
+
+    def test_given_a_deck_return_the_number_of_cards_existing_in_deck(self):
+        '''
+        This method tests the __len__ method in the Deck class
+        '''
+        expected_result = 48
+        self.test_deck.deal()
+        self.assertEqual(expected_result, len(self.test_deck))
 
     def test_when_shuffle_called_shuffle_the_deck_method2(self):
         '''
@@ -59,9 +65,7 @@ class TestDeck(unittest.TestCase):
 
         random_mock.assert_called_with(self.test_deck.cards)
 
-    '''
-    This way of testing seems to fail when working with relative imports
-    '''
+    ## This way of testing seems to fail when working with relative imports
     # @patch('deck.random')
     # def test_when_shuffle_called_shuffle_the_deck(self, mock_random):
     #     '''
@@ -92,6 +96,40 @@ class TestDeck(unittest.TestCase):
         actual_result = self.test_deck.get_next_card()
         self.assertEqual(expected_result.__str__(), actual_result.__str__())
         self.assertEqual(initial_deck_size - 1, len(self.test_deck.cards))
+
+    def test_print_all_cards_method_given_two_cards(self):
+        '''
+        This method tests the print_all_cards method when given two cards to print
+        '''
+        player_cards, dealer_cards = self.test_deck.deal()
+        expected_print_arg = "|{:>2}     |  |{:>2}     |".format(player_cards[0].rank,
+                                                                 player_cards[1].rank)
+        with patch.object(__builtins__, 'print') as mock_print:
+            self.test_deck.print_all_cards(player_cards)
+            mock_print.assert_called_with("└───────┘  └───────┘")
+
+        actual_result = mock_print.call_args_list[1].args[0]
+        self.assertEqual(expected_print_arg, actual_result)
+        self.assertEqual(7, len(mock_print.call_args_list))
+
+
+    def test_print_some_cards_method_given_two_cards(self):
+        '''
+        This method tests the print_some_cards method when given two cards to print
+        '''
+        player_cards, dealer_cards = self.test_deck.deal()
+        back_emoji = "\U0001F9A0"
+        expected_print_arg = "|{0}{1}{2} |  | {3}     |".format(back_emoji,\
+                                                                back_emoji,\
+                                                                back_emoji,\
+                                                                dealer_cards[1].rank)
+        with patch.object(__builtins__, 'print') as mock_print:
+            self.test_deck.print_some_cards(dealer_cards)
+            mock_print.assert_called_with("└───────┘  └───────┘")
+
+        actual_result = mock_print.call_args_list[1].args[0]
+        self.assertEqual(expected_print_arg, actual_result)
+        self.assertEqual(7, len(mock_print.call_args_list))
 
 if __name__ == '__main__':
     unittest.main()

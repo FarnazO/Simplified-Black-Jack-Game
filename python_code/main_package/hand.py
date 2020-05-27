@@ -13,8 +13,8 @@ class Hand():
         - "adjust_for_ace" which depending on the total value of the hand chooses \
         whether ace should count as 1 or 11
     '''
-    values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, \
-                'Nine':9, 'Ten':10, 'Jack':10, 'Queen':10, 'King':10, 'Ace':11}
+    values = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, \
+                '9':9, '10':10, 'Jack':10, 'Queen':10, 'King':10, 'Ace':11}
 
     def __init__(self):
         '''
@@ -29,12 +29,10 @@ class Hand():
         This method returns the cards in the hand and the total score of the hand
         '''
         cards_text = []
-        # print(" Cards in your hand: ")
         for card in self.cards:
             cards_text.append(card.__str__())
-            # print(card.__str__())
 
-        return cards_text, f"You have a total score of {self.value}."
+        return cards_text, f"Total score: {self.value}."
 
     def __len__(self):
         '''
@@ -67,7 +65,7 @@ class Hand():
         '''
         if card.rank != "Ace":
             raise Exception("It is not an ace.")
-            
+
         if self.value > 10:
             self.value += 1
         else:

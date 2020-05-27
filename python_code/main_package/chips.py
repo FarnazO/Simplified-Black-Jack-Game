@@ -16,7 +16,7 @@ class Chips():
         Inititalises the chip object
         '''
         self.total = 100
-    
+
     def win_bet(self, bet):
         '''
         Adds the beted chips to the total chips
