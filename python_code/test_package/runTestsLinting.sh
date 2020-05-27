@@ -10,18 +10,9 @@ success=0
 for i in ${files[@]}
 do
 	echo "$i is running"
-	python $i
+	pylint $i
 
-	if [ $? -eq 0 ]; then
-    	echo SUCCESS
-    	let "success=success+1" 
-	else
-    	echo FAIL
-	fi
 	echo "======================================="
 	echo "***************************************"
 	echo "======================================="
 done
-let "failed=tests-success"
-echo "Total failed tests: $failed"
-echo "Total successful tests: $success"

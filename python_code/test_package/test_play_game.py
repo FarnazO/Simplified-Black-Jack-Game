@@ -101,14 +101,162 @@ class TestPlayGame(unittest.TestCase):
         This method test the hit_or_stand_player method of the PlayGame class
         '''
         self.play_game.start_a_new_round()
-        self.play_game.game.h_or_s = "h"
-        with patch.object(self.play_game.game, 'hit_or_stand',create=True) as mock_hit_or_stand:
+        with patch.object(self.play_game.game, 'hit_or_stand', return_value="s") as mock_hit_or_stand:
             with patch.object(self.play_game, 'show_all_player_cards_and_some_dealer_cards') as mock_print:
                     self.play_game.hit_or_stand_player()
 
         mock_hit_or_stand.assert_called_with(self.play_game.deck, self.play_game.player_hand)
         self.assertEqual("dealer's turn", self.play_game.game_status)
 
+    def test_hit_or_stand_player_method_when_player_score_is_21(self):
+        '''
+        This method test the hit_or_stand_player method of the PlayGame class when
+        the player's score is 21.
+        '''
+        self.play_game.start_a_new_round()
+        self.play_game.player_hand.value = 21
+        with patch.object(self.play_game.game, 'hit_or_stand') as mock_hit_or_stand:
+            with patch.object(self.play_game, 'show_all_player_cards_and_some_dealer_cards') as mock_print:
+                with patch.object(self.play_game, 'show_all_cards') as mock_show_cards:
+                    with patch.object(self.play_game.player_chips, 'win_bet') as mock_win_bet:
+                        with patch.object(self.play_game.dealer_chips, 'lose_bet') as mock_lose_bet:
+                            self.play_game.hit_or_stand_player()
+
+        mock_hit_or_stand.assert_called_with(self.play_game.deck, self.play_game.player_hand)
+        mock_show_cards.assert_called_with()
+        self.assertEqual("ended", self.play_game.game_status)
+        mock_win_bet.assert_called_with(self.play_game.game.player_bet)
+        mock_lose_bet.assert_called_with(self.play_game.game.player_bet)
+
+    def test_hit_or_stand_player_method_when_player_score_is_more_than_21(self):
+        '''
+        This method test the hit_or_stand_player method of the PlayGame class when
+        the player's score is more than 21.
+        '''
+        self.play_game.start_a_new_round()
+        self.play_game.player_hand.value = 25
+        with patch.object(self.play_game.game, 'hit_or_stand') as mock_hit_or_stand:
+            with patch.object(self.play_game, 'show_all_player_cards_and_some_dealer_cards') as mock_print:
+                with patch.object(self.play_game, 'show_all_cards') as mock_show_cards:
+                    with patch.object(self.play_game.dealer_chips, 'win_bet') as mock_win_bet:
+                        with patch.object(self.play_game.player_chips, 'lose_bet') as mock_lose_bet:
+                            self.play_game.hit_or_stand_player()
+
+        mock_hit_or_stand.assert_called_with(self.play_game.deck, self.play_game.player_hand)
+        mock_show_cards.assert_called_with()
+        self.assertEqual("ended", self.play_game.game_status)
+        mock_win_bet.assert_called_with(self.play_game.game.player_bet)
+        mock_lose_bet.assert_called_with(self.play_game.game.player_bet)
+
+    def test_dealer_plays_their_hand(self):
+        '''
+        This method tests the dealer_plays_hand method of PlayGame class
+        '''
+        self.play_game.start_a_new_round()
+        self.play_game.game_status = "dealer's turn"
+        self.play_game.dealer_hand.value = 10
+        with patch.object(self.play_game.game, 'hit', return_value=18) as mock_hit:
+                
+             self.play_game.dealer_plays_hand()
+
+        mock_hit.assert_called_with(self.play_game.deck, self.play_game.dealer_hand)
+
+    def test_dealer_plays_their_hand_when_dealer_hand_is_more_than_17_less_than_21(self):
+        '''
+        This method tests the dealer_plays_hand method of PlayGame class when dealer's
+        hand is more than 17 and less than 21.
+        '''
+        self.play_game.start_a_new_round()
+        self.play_game.game_status = "dealer's turn"
+        self.play_game.dealer_hand.value = 18
+        self.play_game.dealer_plays_hand()
+        self.assertEqual("continue", self.play_game.game_status)
+
+    def test_dealer_plays_their_hand_when_dealer_hand_is_more_than_21(self):
+        '''
+        This method tests the dealer_plays_hand method of PlayGame class when dealer's
+        hand is more than 21.
+        '''
+        self.play_game.start_a_new_round()
+        self.play_game.game_status = "dealer's turn"
+        self.play_game.dealer_hand.value = 23
+        with patch.object(self.play_game, 'show_all_cards') as mock_show_cards:
+            with patch.object(self.play_game.player_chips, 'win_bet') as mock_win_bet:
+                with patch.object(self.play_game.dealer_chips, 'lose_bet') as mock_lose_bet:              
+                    self.play_game.dealer_plays_hand()
+
+        mock_show_cards.assert_called_with()
+        self.assertEqual("ended", self.play_game.game_status)
+        mock_win_bet.assert_called_with(self.play_game.game.player_bet)
+        mock_lose_bet.assert_called_with(self.play_game.game.player_bet)
+
+    def test_who_won_method_when_player_wins(self):
+        '''
+        This method test the who_won method when the player has higher score than dealer
+        '''
+        expected_print = "You won! \U0001f600 \U0001F38A"
+        self.play_game.start_a_new_round()
+        self.play_game.player_hand.value = 20
+        self.play_game.dealer_hand.value = 17
+        with patch.object(self.play_game, 'show_all_cards') as mock_show_cards:
+            with patch.object(self.play_game.player_chips, 'win_bet') as mock_win_bet:
+                with patch.object(self.play_game.dealer_chips, 'lose_bet') as mock_lose_bet: 
+                    with patch.object(__builtins__, 'print') as mock_print:
+                        self.play_game.who_won()
+
+        mock_show_cards.assert_called_with()
+        mock_print.assert_called_with(expected_print)
+        mock_win_bet.assert_called_with(self.play_game.game.player_bet)
+        mock_lose_bet.assert_called_with(self.play_game.game.player_bet)
+
+    def test_who_won_method_when_dealer_wins(self):
+        '''
+        This method test the who_won method when the dealer has higher score than player
+        '''
+        expected_print = "You lose! \U0001F97A"
+        self.play_game.start_a_new_round()
+        self.play_game.player_hand.value = 15
+        self.play_game.dealer_hand.value = 17
+        with patch.object(self.play_game, 'show_all_cards') as mock_show_cards:
+            with patch.object(self.play_game.dealer_chips, 'win_bet') as mock_win_bet:
+                with patch.object(self.play_game.player_chips, 'lose_bet') as mock_lose_bet: 
+                    with patch.object(__builtins__, 'print') as mock_print:
+                        self.play_game.who_won()
+
+        mock_show_cards.assert_called_with()
+        mock_print.assert_called_with(expected_print)
+        mock_win_bet.assert_called_with(self.play_game.game.player_bet)
+        mock_lose_bet.assert_called_with(self.play_game.game.player_bet)
+
+    def test_end_the_game_method_prints_the_correct_statements(self):
+        '''
+        This method test that the end_the_game method,\
+        which should print the word "END".
+        - 
+        '''
+        expected_number_of_print_calls = 7
+        expected_print= "||\U0001F44B    *          * *    *   *    *    \U0001F44B||"
+        with patch.object(__builtins__, 'print') as mock_print:
+            self.play_game.end_the_game()
+
+        self.assertEqual(expected_number_of_print_calls,\
+                        len(mock_print.call_args_list))
+        self.assertEqual(expected_print, mock_print.call_args_list[2].args[0])
+
+    def test_play_again_method_prints_the_correct_statements(self):
+        '''
+        This method test that the play_again method,\
+        which should print the word "PLAY AGAIN".
+        - 
+        '''
+        expected_number_of_print_calls = 7
+        expected_print= "||    *    * *         * *      *   *            * *      *            * *     *  * *    *  ||"
+        with patch.object(__builtins__, 'print') as mock_print:
+            self.play_game.play_again()
+
+        self.assertEqual(expected_number_of_print_calls,\
+                        len(mock_print.call_args_list))
+        self.assertEqual(expected_print, mock_print.call_args_list[2].args[0])
 
 if __name__ == '__main__':
     unittest.main()
