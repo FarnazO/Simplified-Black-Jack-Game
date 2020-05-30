@@ -1,7 +1,9 @@
 #!/bin/bash
 
-
 clear
+cd ../
+export PYTHONPATH=$PWD
+cd test_package/ 
 tests=$(ls test_* | wc -l)
 file_names=$(ls -d test_*)
 declare -a files
