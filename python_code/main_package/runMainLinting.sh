@@ -2,6 +2,9 @@
 
 
 clear
+cd ../
+export PYTHONPATH=$PWD
+cd main_package/ 
 mains=$(ls *.py | wc -l)
 file_names=$(ls -d *.py)
 declare -a files
